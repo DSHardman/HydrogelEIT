@@ -25,7 +25,7 @@ urnie.set_tcp(wp.probing_tcp)
 # Connect to EIT board
 ser = serial.Serial(port="COM3", baudrate=115200, timeout=10)
 
-for i in range(10000):  # Record 10000 probes
+for i in range(1704, 10000):  # Record 10000 probes
 
     # Random xy positions & depth
     x = random.random()*xupperbound
