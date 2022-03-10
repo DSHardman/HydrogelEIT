@@ -4,6 +4,9 @@ import time
 import numpy as np
 import random
 import serial
+#from __future__ import absolute_import
+import queue
+import OpenEIT.backend
 
 timebefore = 1
 timedown = 1.5
@@ -23,9 +26,14 @@ urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
 urnie.set_tcp(wp.probing_tcp)
 
 # Connect to EIT board
-ser = serial.Serial(port="COM3", baudrate=115200, timeout=10)
+#ser = serial.Serial(port="COM3", baudrate=115200, timeout=10)
+serial_handler = OpenEIT.backend.SerialHandler(queue.Queue())
+serial_handler.connect('COM3')
+serial_handler.setmode('d')
+serial_handler.start_recording()
+time.sleep(20)  # Give ample time to connect and start returning data
 
-for i in range(1704, 10000):  # Record 10000 probes
+for i in range(10000):  # Record 10000 probes
 
     # Random xy positions & depth
     x = random.random()*xupperbound
@@ -53,15 +61,23 @@ for i in range(1704, 10000):  # Record 10000 probes
         while time.time() - t0 < dt*(k+1):
             continue
 
-    time.sleep(timepressed)
     # Save data
-    data = ser.readline()
-    f = open('responses/response' + str(i) + '.txt', "w")
-    f.write(str(xy[0]) + ", " + str(xy[1]) + ", " + str(xy[2]) + "\n")
-    f.write(str(data))
-    f.close()
-    #np.save('responses/response' + str(i), data)
-    #np.save('responses/xy' + str(i), xy)
+    # data = ser.readline()
+    serial_state = serial_handler.updater
+    while serial_handler.updater == serial_state:
+        pass  # wait for last set of readings to end
+
+    while serial_handler.updater != serial_state:
+        pass  # wait for new set of readings to end
+
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
+
+    np.save('responses/position' + str(i), xy)
+    np.save('responses/response' + str(i), data)
+    # f = open('responses/response' + str(i) + '.txt', "w")
+    # f.write(str(xy[0]) + ", " + str(xy[1]) + ", " + str(xy[2]) + "\n")
+    # f.write(str(data))
+    # f.close()
 
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 

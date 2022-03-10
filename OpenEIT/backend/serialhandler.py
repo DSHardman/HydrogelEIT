@@ -4,6 +4,9 @@
 # Distributed under the (new) CC BY-NC-SA 4.0 License. See LICENSE.txt for more info.
 
 """
+
+# Changed by dsh46 10/03/22: update attribute now incorporated, which oscillates between 1 & 0
+
 # Serial handler class.
 from __future__ import absolute_import
 from sys import platform
@@ -95,6 +98,7 @@ class SerialHandler:
         # self._data_type = data_type
         self._mode = 'd' # mode
 
+        self.updater = True  # NEW LINE 10/03/22
         self.raw_text = 'streamed data'
         if platform == "darwin_xx":
             # Get the BLE provider for the current  platform.
@@ -186,6 +190,7 @@ class SerialHandler:
                     # XXX: we should not record the raw stream but the
                     # parsed data
                     # print (line)
+                    serialhandler.updater = not serialhandler.updater  # NEW LINE 10/03/22
                     serialhandler.raw_text = line
 
                     with serialhandler._recording_lock:
