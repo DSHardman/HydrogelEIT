@@ -1,0 +1,29 @@
+% Copying code from SH sensor project
+% Note errors are currently normalised
+
+x = positions(:,1);
+y = positions(:,2);
+
+ypred = sim(results.Network, [nresponses(:,:)].');
+
+yfactor = 60/(max(ypred))
+yoffset
+ypred(1,:) = ypred(1,:)
+
+z=rssq((ypred(1:2,:)'-positions(:,1:2))');
+
+mean(z)
+errorout = mean(z);
+
+%z = min(z, 48.8); % error cannot exceed corner-to-corner square size
+
+% use interpolated contour maps
+interpolant = scatteredInterpolant(x,y,double(z).');
+[xx,yy] = meshgrid(linspace(0,0.13,100), linspace(0,0.06,100));
+error_interp = interpolant(xx,yy);
+contourf(xx,yy,error_interp, 'LineColor', 'none');
+
+axis('equal')
+colormap('hot')
+%caxis([0 48.8])
+set(gca, 'Visible', 'off');
