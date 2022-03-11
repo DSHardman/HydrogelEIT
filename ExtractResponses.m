@@ -1,4 +1,4 @@
-n = 10;
+n = 3452;
 
 positions = zeros(n, 3);
 responses = zeros(n, 192);

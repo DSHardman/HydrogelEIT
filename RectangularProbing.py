@@ -33,7 +33,7 @@ serial_handler.setmode('d')
 serial_handler.start_recording()
 time.sleep(20)  # Give ample time to connect and start returning data
 
-for i in range(10000):  # Record 10000 probes
+for i in range(942, 10000):  # Record 10000 probes
 
     # Random xy positions & depth
     x = random.random()*xupperbound
