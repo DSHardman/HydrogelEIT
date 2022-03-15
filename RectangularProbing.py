@@ -33,12 +33,8 @@ serial_handler.setmode('d')
 serial_handler.start_recording()
 time.sleep(20)  # Give ample time to connect and start returning data
 
-for i in range(942, 10000):  # Record 10000 probes
 
-    # Random xy positions & depth
-    x = random.random()*xupperbound
-    y = random.random()*yupperbound
-    depth = random.choice([0.002, 0.004, 0.006])
+def pressrecord(x, y, depth, savestring):
     xy = [x, y, depth]
 
     # Control press using defined variables
@@ -72,15 +68,26 @@ for i in range(942, 10000):  # Record 10000 probes
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/position' + str(i), xy)
-    np.save('responses/response' + str(i), data)
-    # f = open('responses/response' + str(i) + '.txt', "w")
-    # f.write(str(xy[0]) + ", " + str(xy[1]) + ", " + str(xy[2]) + "\n")
-    # f.write(str(data))
-    # f.close()
+    np.save('responses/position' + savestring, xy)
+    np.save('responses/response' + savestring, data)
 
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
-    print(i)
+
+# for i in range(10001, 20000):  # Record 10000 probes
+#     # Random xy positions & depth
+#     x = random.random()*xupperbound
+#     y = random.random()*yupperbound
+#     depth = random.choice([0.002, 0.004, 0.006])
+#     pressrecord(x, y, depth, str(i))
+#     print(i)
+
+xs = np.random.rand(50)*xupperbound
+ys = np.random.rand(50)*yupperbound
+depths = random.choices([0.002, 0.004, 0.006], k=50)
+
+for n in range(5):
+    for i in range(50):
+        pressrecord(xs[i], ys[i], depths[i], "rep" + str(i) + "_" + str(n))
 
 urnie.close()
