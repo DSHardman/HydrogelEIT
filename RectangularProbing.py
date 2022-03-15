@@ -49,6 +49,21 @@ def pressrecord(x, y, depth, savestring):
 
     urnie.movel(poses[0], acc=0.02, vel=0.02)
 
+    ##
+
+    serial_state = serial_handler.updater
+    while serial_handler.updater == serial_state:
+        pass  # wait for last set of readings to end
+
+    while serial_handler.updater != serial_state:
+        pass  # wait for new set of readings to end
+
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
+
+    np.save('responses/responseup' + savestring, data)
+
+    ##
+
     # Measure and record sensor data
     urnie.movel(poses[0], acc=0.02, vel=0.02)
     t0 = time.time()
@@ -69,7 +84,7 @@ def pressrecord(x, y, depth, savestring):
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
     np.save('responses/position' + savestring, xy)
-    np.save('responses/response' + savestring, data)
+    np.save('responses/responsedown' + savestring, data)
 
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
@@ -82,12 +97,15 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, str(i))
 #     print(i)
 
-xs = np.random.rand(50)*xupperbound
-ys = np.random.rand(50)*yupperbound
-depths = random.choices([0.002, 0.004, 0.006], k=50)
+# xs = np.random.rand(50)*xupperbound
+# ys = np.random.rand(50)*yupperbound
+# depths = random.choices([0.002, 0.004, 0.006], k=50)
+#
+# for n in range(5):
+#     for i in range(50):
+#         pressrecord(xs[i], ys[i], depths[i], "rep" + str(i) + "_" + str(n))
 
-for n in range(5):
-    for i in range(50):
-        pressrecord(xs[i], ys[i], depths[i], "rep" + str(i) + "_" + str(n))
+for i in range(200):
+    pressrecord(0.05, 0.02, 0.006, "point" + str(i))
 
 urnie.close()
