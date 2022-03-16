@@ -96,7 +96,7 @@ class SerialHandler:
         self._record_file = None
         self._bytestream = ''
         # self._data_type = data_type
-        self._mode = 'd' # mode
+        self._mode = 'c'  # mode CHANGED 16/03/22
 
         self.updater = True  # NEW LINE 10/03/22
         self.raw_text = 'streamed data'

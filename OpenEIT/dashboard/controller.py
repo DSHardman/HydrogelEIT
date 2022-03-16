@@ -190,7 +190,9 @@ class Controller:
 
         self._mode = self.serial_handler.getmode()
         if 'a' in self._mode or 'b' in self._mode:
-            self._n_el = 16 # just to set it to something. 
+            self._n_el = 16  # just to set it to something.
+        elif 'c' in self._mode:
+            self._n_el = 8
         elif 'd' in self._mode:
             self._n_el = 16
             self.update_algorithm(self._algorithm ,16)
