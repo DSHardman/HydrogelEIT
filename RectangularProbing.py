@@ -60,7 +60,7 @@ def pressrecord(x, y, depth, savestring):
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/responseup' + savestring, data)
+    np.save('responses/up' + savestring, data)
 
     ##
 
@@ -84,18 +84,18 @@ def pressrecord(x, y, depth, savestring):
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
     np.save('responses/position' + savestring, xy)
-    np.save('responses/responsedown' + savestring, data)
+    np.save('responses/down' + savestring, data)
 
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
-# for i in range(10001, 20000):  # Record 10000 probes
-#     # Random xy positions & depth
-#     x = random.random()*xupperbound
-#     y = random.random()*yupperbound
-#     depth = random.choice([0.002, 0.004, 0.006])
-#     pressrecord(x, y, depth, str(i))
-#     print(i)
+for i in range(587, 10000):  # Record 10000 probes
+    # Random xy positions & depth
+    x = random.random()*xupperbound
+    y = random.random()*yupperbound
+    depth = 0.006
+    pressrecord(x, y, depth, '16_el_' + str(i))
+    print(i)
 
 # xs = np.random.rand(50)*xupperbound
 # ys = np.random.rand(50)*yupperbound
@@ -105,7 +105,7 @@ def pressrecord(x, y, depth, savestring):
 #     for i in range(50):
 #         pressrecord(xs[i], ys[i], depths[i], "rep" + str(i) + "_" + str(n))
 
-for i in range(200):
-    pressrecord(0.05, 0.02, 0.006, "point" + str(i))
+# for i in range(200):
+#     pressrecord(0.05, 0.02, 0.006, "point" + str(i))
 
 urnie.close()
