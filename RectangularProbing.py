@@ -89,7 +89,7 @@ def pressrecord(x, y, depth, savestring):
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
-for i in range(587, 10000):  # Record 10000 probes
+for i in range(9299, 10000):  # Record 10000 probes
     # Random xy positions & depth
     x = random.random()*xupperbound
     y = random.random()*yupperbound
