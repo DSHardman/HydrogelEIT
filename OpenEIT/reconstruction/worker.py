@@ -113,3 +113,16 @@ class ReconstructionWorker(threading.Thread):
                     print ('forcing stop reconstruct')
                     self._running = False
 
+    def single_run(self, data1, data2, n):  # added 19/04/22 by dsh46
+
+        # Taken from original code: deal with 0 cases
+        data1 = [1.0 if x == 0 else x for x in data1]
+        data2 = [1.0 if x == 0 else x for x in data2]
+
+        # Reconstruct and save to file
+        self._reconstruction.update_reference(data1)
+        img = self._reconstruction.eit_reconstruction(data1)
+        self._output_queue.put(img)
+        img = self._reconstruction.eit_reconstruction(data2)
+        np.save("C:/Users/dshar/OneDrive - University of Cambridge/Documents/PhD/EIT/responses/IMG" + str(n) + ".npy", img)
+
