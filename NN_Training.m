@@ -1,4 +1,4 @@
-inp = ttrain;
+inp = btrain;
 out = positions(:,1:2);
 
 P=randperm(length(inp));
