@@ -18,12 +18,13 @@ yupperbound = 60 * 0.001
 
 samplesdown = int(timedown/dt)
 
-zeropose = [0.0223994, -0.489636, 0.0102109, -3.11974, -0.110339, 0.041454]
+zeropose = [0.31277, -0.305859, 0.0395191, -3.10311, -0.114313, 0.00344722]
 
 
 #  Connect to UR5
 urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
 urnie.set_tcp(wp.probing_tcp)
+
 
 # Connect to EIT board
 #ser = serial.Serial(port="COM3", baudrate=115200, timeout=10)
@@ -60,7 +61,7 @@ def pressrecord(x, y, depth, savestring):
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/up' + savestring, data)
+    np.save('responses/membrane/up' + savestring, data)
 
     ##
 
@@ -83,29 +84,19 @@ def pressrecord(x, y, depth, savestring):
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/position' + savestring, xy)
-    np.save('responses/down' + savestring, data)
+    np.save('responses/membrane/position' + savestring, xy)
+    np.save('responses/membrane/down' + savestring, data)
 
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
-for i in range(1365, 10000):  # Record 10000 probes
-    # Random xy positions & depth
-    x = random.random()*xupperbound
-    y = random.random()*yupperbound
-    depth = 0.006
-    pressrecord(x, y, depth, '16_el2_' + str(i))
+for i in range(15):  # Record 10000 probes
+
+    # y line with 1cm depth
+    x = 0
+    y = (-70 + i*10)/1000
+    depth = 0.01
+    pressrecord(x, y, depth, '_doubleheal2_' + str(i))
     print(i)
-
-# xs = np.random.rand(50)*xupperbound
-# ys = np.random.rand(50)*yupperbound
-# depths = random.choices([0.002, 0.004, 0.006], k=50)
-#
-# for n in range(5):
-#     for i in range(50):
-#         pressrecord(xs[i], ys[i], depths[i], "rep" + str(i) + "_" + str(n))
-
-# for i in range(200):
-#     pressrecord(0.05, 0.02, 0.006, "point" + str(i))
 
 urnie.close()
