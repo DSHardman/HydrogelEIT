@@ -73,7 +73,6 @@ def pressrecord(x, y, depth, savestring):
             continue
 
     # Save data
-    # data = ser.readline()
     serial_state = serial_handler.updater
     while serial_handler.updater == serial_state:
         pass  # wait for last set of readings to end
