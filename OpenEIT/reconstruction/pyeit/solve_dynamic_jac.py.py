@@ -50,13 +50,13 @@ def plotEIT(inp_path, ref_path, num):
     im = ax.tripcolor(x, y, tri, ds_n, shading='flat')
     for i, e in enumerate(el_pos):
         ax.annotate(str(i+1), xy=(x[e], y[e]), color='r')
-    #im.set_clim(vmin=-0.8, vmax=0.8)
+    im.set_clim(vmin=-80, vmax=80)
     fig.colorbar(im)
     ax.set_aspect('equal')
     # fig.set_size_inches(6, 4)
-    #plt.savefig("doubleheal_cutref"+str(num)+".png", dpi=96)
-    plt.show()
+    plt.savefig("doubleheal_doublecutref"+str(num)+".png", dpi=96)
+    #plt.show()
 
 
 for i in range(15):
-    plotEIT("responses/down_doublecut1_"+str(i)+".npy", "responses/up_heal1_0.npy", i)
+    plotEIT("responses/down_doubleheal1_"+str(i)+".npy", "responses/up_doublecut2_14.npy", i)
