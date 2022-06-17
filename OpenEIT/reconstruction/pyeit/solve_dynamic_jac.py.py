@@ -59,4 +59,4 @@ def plotEIT(inp_path, ref_path, num):
 
 
 for i in range(15):
-    plotEIT("responses/down_doublecut1_"+str(i)+".npy", "responses/up_heal1_0.npy", i)
+    plotEIT("responses/down_testest_"+str(i)+".npy", "responses/up_testest_0.npy", i)

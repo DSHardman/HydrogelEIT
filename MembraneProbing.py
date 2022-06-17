@@ -18,18 +18,17 @@ yupperbound = 60 * 0.001
 
 samplesdown = int(timedown/dt)
 
-zeropose = [0.31277, -0.305859, 0.0395191, -3.10311, -0.114313, 0.00344722]
+zeropose = [0.297091, -0.410472, 0.0401197, -3.10314, -0.114561, 0.00350052]
 
 
 #  Connect to UR5
 urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
 urnie.set_tcp(wp.probing_tcp)
 
-
 # Connect to EIT board
-#ser = serial.Serial(port="COM3", baudrate=115200, timeout=10)
+#ser = serial.Serial(port="COM4", baudrate=115200, timeout=10)
 serial_handler = OpenEIT.backend.SerialHandler(queue.Queue())
-serial_handler.connect('COM3')
+serial_handler.connect('COM4')
 serial_handler.setmode('d')
 serial_handler.start_recording()
 time.sleep(20)  # Give ample time to connect and start returning data
@@ -63,7 +62,6 @@ def pressrecord(x, y, depth, savestring):
 
     np.save('responses/membrane/up' + savestring, data)
 
-    ##
 
     # Measure and record sensor data
     urnie.movel(poses[0], acc=0.02, vel=0.02)
@@ -74,13 +72,13 @@ def pressrecord(x, y, depth, savestring):
             continue
 
     # Save data
-    # data = ser.readline()
     serial_state = serial_handler.updater
     while serial_handler.updater == serial_state:
         pass  # wait for last set of readings to end
 
     while serial_handler.updater != serial_state:
         pass  # wait for new set of readings to end
+    time.sleep(1)
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
@@ -90,13 +88,29 @@ def pressrecord(x, y, depth, savestring):
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
-for i in range(15):  # Record 10000 probes
+# for i in range(15):
+#
+#     # y line with 1cm depth
+#     x = 0
+#     y = (-70 + i*10)/1000
+#     depth = 0.01
+#     pressrecord(x, y, depth, '_heal2_' + str(i))
+#     print(i)
 
-    # y line with 1cm depth
+# for i in range(1000):  # Record 10000 probes
+#
+#     # y line with 1cm depth
+#     x = 0
+#     y = (random.random()*140-70)/1000
+#     depth = 0.01
+#     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
+#     print(i)
+
+for i in range(10):  # 10 central repeats
     x = 0
-    y = (-70 + i*10)/1000
-    depth = 0.01
-    pressrecord(x, y, depth, '_doubleheal2_' + str(i))
+    y = 0
+    depth = 0.025
+    pressrecord(x, y, depth, '_repeathealdeep_' + str(i))
     print(i)
 
 urnie.close()
