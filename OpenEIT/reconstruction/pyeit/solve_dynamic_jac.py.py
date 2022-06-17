@@ -50,17 +50,18 @@ def plotEIT(inp_path, ref_path, num):
     im = ax.tripcolor(x, y, tri, ds_n, shading='flat')
     for i, e in enumerate(el_pos):
         ax.annotate(str(i+1), xy=(x[e], y[e]), color='r')
-    im.set_clim(vmin=-80, vmax=80)
+    #im.set_clim(vmin=-0.1, vmax=0.1)
     fig.colorbar(im)
     ax.set_aspect('equal')
-    # fig.set_size_inches(6, 4)
-    plt.savefig("doubleheal_doublecutref"+str(num)+".png", dpi=96)
+    #fig.set_size_inches(6, 4)
+    plt.savefig("healcutcomp"+str(num)+".png", dpi=96)
     #plt.show()
 
-
+# plotEIT("responses/up_cut1_0.npy", "responses/up_repeat_9.npy", 2)
+# plotEIT("responses/up_heal1_0.npy", "responses/up_cut1_14.npy", 2)
 for i in range(15):
-<<<<<<< HEAD
-    plotEIT("responses/down_doubleheal1_"+str(i)+".npy", "responses/up_doublecut2_14.npy", i)
-=======
-    plotEIT("responses/down_testest_"+str(i)+".npy", "responses/up_testest_0.npy", i)
->>>>>>> b69f091ca9a9d61e97b44f8bcff617682130b697
+    plotEIT("responses/down_heal1_"+str(i)+".npy", "responses/down_cut1_"+str(i)+".npy", i)
+
+
+# for i in range(10):
+#     plotEIT("responses/down_repeatheal_"+str(i)+".npy", "responses/up_repeatheal_"+str(i)+".npy", i)
