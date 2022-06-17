@@ -88,14 +88,14 @@ def pressrecord(x, y, depth, savestring):
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
-# for i in range(15):
-#
-#     # y line with 1cm depth
-#     x = 0
-#     y = (-70 + i*10)/1000
-#     depth = 0.01
-#     pressrecord(x, y, depth, '_heal2_' + str(i))
-#     print(i)
+for i in range(15):
+
+    # y line with 1cm depth
+    x = 0
+    y = (-70 + i*10)/1000
+    depth = 0.025
+    pressrecord(x, y, depth, '_linedeep_' + str(i))
+    print(i)
 
 # for i in range(1000):  # Record 10000 probes
 #
@@ -106,11 +106,11 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
 #     print(i)
 
-for i in range(10):  # 10 central repeats
-    x = 0
-    y = 0
-    depth = 0.025
-    pressrecord(x, y, depth, '_repeathealdeep_' + str(i))
-    print(i)
+# for i in range(10):  # 10 central repeats
+#     x = 0
+#     y = 0
+#     depth = 0.025
+#     pressrecord(x, y, depth, '_repeathealdeep_' + str(i))
+#     print(i)
 
 urnie.close()
