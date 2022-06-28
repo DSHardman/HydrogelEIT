@@ -10,15 +10,15 @@ import OpenEIT.backend
 
 timebefore = 1
 timedown = 1.5
-timepressed = 2
+# timepressed = 2
 dt = 0.05
 
-xupperbound = 130 * 0.001
-yupperbound = 60 * 0.001
+# xupperbound = 130 * 0.001
+# yupperbound = 60 * 0.001
 
-samplesdown = int(timedown/dt)
+# samplesdown = int(timedown/dt)
 
-zeropose = [0.297091, -0.410472, 0.0401197, -3.10314, -0.114561, 0.00350052]
+zeropose = [0.247722, -0.392591, 0.0388576, -3.12646, -0.125169, -0.0300251]
 
 
 #  Connect to UR5
@@ -26,12 +26,11 @@ urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
 urnie.set_tcp(wp.probing_tcp)
 
 # Connect to EIT board
-#ser = serial.Serial(port="COM4", baudrate=115200, timeout=10)
-# serial_handler = OpenEIT.backend.SerialHandler(queue.Queue())
-# serial_handler.connect('COM4')
-# serial_handler.setmode('d')
-# serial_handler.start_recording()
-#time.sleep(20)  # Give ample time to connect and start returning data
+serial_handler = OpenEIT.backend.SerialHandler(queue.Queue())
+serial_handler.connect('COM4')
+serial_handler.setmode('d')
+serial_handler.start_recording()
+time.sleep(20)  # Give ample time to connect and start returning data
 
 
 def pressrecord(x, y, depth, savestring):
@@ -41,53 +40,34 @@ def pressrecord(x, y, depth, savestring):
     startingpose = np.add(zeropose, [x, y, 0.01, 0, 0, 0])
     urnie.movel(startingpose, acc=0.02, vel=0.02)
 
-    poses = 0
-    poses = np.ones((int((timebefore+timedown)/dt), 1))*startingpose
+    serial_state = serial_handler.updater
+    while serial_handler.updater == serial_state:
+        pass  # wait for last set of readings to end
 
-    for j in range(int(timebefore/dt), int(timebefore/dt) + samplesdown):
-        poses[j] = np.add(poses[j], [0, 0, -(depth+0.01)*(j - int(timebefore/dt))/samplesdown, 0, 0, 0])
+    while serial_handler.updater != serial_state:
+        pass  # wait for new set of readings to end
 
-    urnie.movel(poses[0], acc=0.02, vel=0.02)
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    ##
+    np.save('responses/randommembrane/up' + savestring, data)
 
-    # serial_state = serial_handler.updater
-    # while serial_handler.updater == serial_state:
-    #     pass  # wait for last set of readings to end
-    #
-    # while serial_handler.updater != serial_state:
-    #     pass  # wait for new set of readings to end
-
-    #data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
-
-    #np.save('responses/membrane/up' + savestring, data)
-
-
-    # Measure and record sensor data
-    urnie.movel(poses[0], acc=0.02, vel=0.02)
-    t0 = time.time()
-    for k in range(0, int((timebefore+timedown)/dt)):
-        urnie.servoj(poses[k], control_time=dt, lookahead_time=0.2)
-        while time.time() - t0 < dt*(k+1):
-            continue
+    downpose = np.add(zeropose, [x, y, -depth, 0, 0, 0])
+    urnie.movel(downpose, acc=0.01, vel=0.01)
 
     # Save data
-   # serial_state = serial_handler.updater
-    #while serial_handler.updater == serial_state:
-     #   pass  # wait for last set of readings to end
+    serial_state = serial_handler.updater
+    while serial_handler.updater == serial_state:
+        pass  # wait for last set of readings to end
 
-    #while serial_handler.updater != serial_state:
-    #    pass  # wait for new set of readings to end
-    time.sleep(1)
+    while serial_handler.updater != serial_state:
+        pass  # wait for new set of readings to end
 
-    time.sleep(3) # RLL addition
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    #data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
+    np.save('responses/randommembrane/position' + savestring, xy)
+    np.save('responses/randommembrane/down' + savestring, data)
 
-    #np.save('responses/membrane/position' + savestring, xy)
-    #np.save('responses/membrane/down' + savestring, data)
-
-    urnie.movel(startingpose, acc=0.02, vel=0.02)
+    urnie.movel(startingpose, acc=0.01, vel=0.01)
 
 
 # for i in range(15):
@@ -99,13 +79,28 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_linedeep_' + str(i))
 #     print(i)
 
-for i in range(50000):  # Record 10000 probes
+# for i in range(50000):  # Record 10000 probes
+#
+#     # y line with 1cm depth
+#     x = 0
+#     y = (random.random()*140-70)/1000
+#     depth = 0.01
+#     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
+#     print(i)
 
-    # y line with 1cm depth
-    x = 0
-    y = (random.random()*140-70)/1000
+for i in range(1000):  # Randomise within circle
+
+    radius = 70
+
+    # Select from random distribution within circle
+    rho = radius*2
+    while rho > radius:
+        x = (random.random()*2*radius-radius)/1000
+        y = (random.random()*2*radius-radius)/1000
+        rho = np.sqrt((x*1000)**2 + (y*1000)**2)
+
     depth = 0.01
-    pressrecord(x, y, depth, '_doubleheal2_' + str(i))
+    pressrecord(x, y, depth, '_depth1_' + str(i))
     print(i)
 
 # for i in range(10):  # 10 central repeats
