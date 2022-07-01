@@ -1,4 +1,4 @@
-n = 15;
+n = 7808;
 
 positions = zeros(n, 3);
 responseups = zeros(n, 192);
@@ -6,9 +6,9 @@ responsedowns = zeros(n, 192);
 fullresponse = zeros(2*n, 192);
 
 for i = 0:n-1
-    position = readNPY('responses/membrane/position_doubleheal2_' + string(i) + '.npy');
-    responseup = readNPY('responses/membrane/up_doubleheal2_' + string(i) + '.npy');
-    responsedown = readNPY('responses/membrane/down_doubleheal2_' + string(i) + '.npy');
+    position = readNPY('responses/randommembrane/position_alldepths_' + string(i) + '.npy');
+    responseup = readNPY('responses/randommembrane/up_alldepths_' + string(i) + '.npy');
+    responsedown = readNPY('responses/randommembrane/down_alldepths_' + string(i) + '.npy');
 
     positions(i+1, :) = position;
     responseups(i+1, :) = responseup;

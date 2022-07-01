@@ -88,7 +88,7 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
 #     print(i)
 
-for i in range(1000):  # Randomise within circle
+for i in range(20000):  # Randomise within circle
 
     radius = 70
 
@@ -99,8 +99,9 @@ for i in range(1000):  # Randomise within circle
         y = (random.random()*2*radius-radius)/1000
         rho = np.sqrt((x*1000)**2 + (y*1000)**2)
 
-    depth = 0.01
-    pressrecord(x, y, depth, '_depth1_' + str(i))
+    # depth = 0.01
+    depth = random.choice([0.005, 0.01, 0.015, 0.02])
+    pressrecord(x, y, depth, '_alldepths_' + str(i))
     print(i)
 
 # for i in range(10):  # 10 central repeats

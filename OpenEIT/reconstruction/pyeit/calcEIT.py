@@ -1,8 +1,13 @@
+#!/usr/bin/python
+
 """ Based on dynamic_jac example: 16 electrode solver """
+# Called from matlab script
+
 from __future__ import division, absolute_import, print_function
 
 import numpy as np
-import pickle
+import h5py
+from mat4py import loadmat
 import matplotlib.pyplot as plt
 
 import mesh as mesh
@@ -12,10 +17,12 @@ import eit.jac as jac
 from eit.interp2d import sim2pts
 
 
-def plotEIT(inp_path, ref_path, num):
+def plotEIT(inp_path, ref_path):
 
-    eit_input = np.load(inp_path)
-    eit_ref = np.load(ref_path)
+    eit_input = loadmat(inp_path)
+    eit_input = np.array(eit_input['signal'])
+    eit_ref = loadmat(ref_path)
+    eit_ref = np.array(eit_ref['reference'])
 
     """ 0. construct mesh """
     mesh_obj, el_pos = mesh.create(16, h0=0.1)
@@ -50,20 +57,10 @@ def plotEIT(inp_path, ref_path, num):
     im = ax.tripcolor(x, y, tri, ds_n, shading='flat')
     for i, e in enumerate(el_pos):
         ax.annotate(str(i+1), xy=(x[e], y[e]), color='r')
-    #im.set_clim(vmin=-0.1, vmax=0.1)
     fig.colorbar(im)
     ax.set_aspect('equal')
-    #fig.set_size_inches(6, 4)
-    #plt.savefig("healcutcomp"+str(num)+".png", dpi=96)
-    plt.show()
-
-plotEIT("C:/Users/BIRL/Documents/HydrogelEIT/responses/randommembrane/down_alldepths_7800.npy",
-        "C:/Users/BIRL/Documents/HydrogelEIT/responses/randommembrane/up_alldepths_7800.npy", 0)
+    plt.savefig("OpenEIT/reconstruction/pyeit/temp/outputimg.png", dpi=96)
 
 
-# for i in range(15):
-#     plotEIT("responses/down_heal1_"+str(i)+".npy", "responses/down_cut1_"+str(i)+".npy", i)
+plotEIT('OpenEIT/reconstruction/pyeit/temp/response.mat', 'OpenEIT/reconstruction/pyeit/temp/reference.mat')
 
-
-# for i in range(10):
-#     plotEIT("responses/down_repeatheal_"+str(i)+".npy", "responses/up_repeatheal_"+str(i)+".npy", i)
