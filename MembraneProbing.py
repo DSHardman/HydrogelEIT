@@ -104,7 +104,7 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_alldepths_' + str(i))
 #     print(i)
 
-namingstring = '_nothing_'
+namingstring = '_line_'
 pressrecord(0, 0, 0.02, namingstring+'0')
 pressrecord(-0.05, 0, 0.02, namingstring+'1')
 pressrecord(0.05, 0, 0.02, namingstring+'2')
