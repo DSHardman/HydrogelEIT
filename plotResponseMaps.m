@@ -2,9 +2,9 @@ magnitudes = responsedowns - responseups;
 for i = 1:size(responsedowns, 1)
     [theta, rho] = cart2pol(positions(i,1), positions(i,2));
     % magnitudes(i,:) = magnitudes(i,:)*(1 - 1/(74 - rho*1000));
-    magnitudes(i,:) = magnitudes(i,:)*(1.1 - (rho*1000)/70);
+    magnitudes(i,:) = abs(magnitudes(i,:)*(1.1 - (rho*1000)/70));
     magnitudes(i,:) = normalize(magnitudes(i,:));
-    %magnitudes(i,:) = tanh(magnitudes(i,:));
+    magnitudes(i,:) = tanh(magnitudes(i,:));
 end
 
 for i = 115:192

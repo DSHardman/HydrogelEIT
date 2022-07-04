@@ -49,7 +49,7 @@ def pressrecord(x, y, depth, savestring):
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/randommembrane/up' + savestring, data)
+    np.save('responses/silicone/up' + savestring, data)
 
     downpose = np.add(zeropose, [x, y, -depth, 0, 0, 0])
     urnie.movel(downpose, acc=0.01, vel=0.01)
@@ -64,8 +64,8 @@ def pressrecord(x, y, depth, savestring):
 
     data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'd')
 
-    np.save('responses/randommembrane/position' + savestring, xy)
-    np.save('responses/randommembrane/down' + savestring, data)
+    np.save('responses/silicone/position' + savestring, xy)
+    np.save('responses/silicone/down' + savestring, data)
 
     urnie.movel(startingpose, acc=0.01, vel=0.01)
 
@@ -88,21 +88,28 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
 #     print(i)
 
-for i in range(20000):  # Randomise within circle
+# for i in range(20000):  # Randomise within circle
+#
+#     radius = 70
+#
+#     # Select from random distribution within circle
+#     rho = radius*2
+#     while rho > radius:
+#         x = (random.random()*2*radius-radius)/1000
+#         y = (random.random()*2*radius-radius)/1000
+#         rho = np.sqrt((x*1000)**2 + (y*1000)**2)
+#
+#     # depth = 0.01
+#     depth = random.choice([0.005, 0.01, 0.015, 0.02])
+#     pressrecord(x, y, depth, '_alldepths_' + str(i))
+#     print(i)
 
-    radius = 70
-
-    # Select from random distribution within circle
-    rho = radius*2
-    while rho > radius:
-        x = (random.random()*2*radius-radius)/1000
-        y = (random.random()*2*radius-radius)/1000
-        rho = np.sqrt((x*1000)**2 + (y*1000)**2)
-
-    # depth = 0.01
-    depth = random.choice([0.005, 0.01, 0.015, 0.02])
-    pressrecord(x, y, depth, '_alldepths_' + str(i))
-    print(i)
+namingstring = '_nothing_'
+pressrecord(0, 0, 0.02, namingstring+'0')
+pressrecord(-0.05, 0, 0.02, namingstring+'1')
+pressrecord(0.05, 0, 0.02, namingstring+'2')
+pressrecord(0, -0.05, 0.02, namingstring+'3')
+pressrecord(0, 0.05, 0.02, namingstring+'4')
 
 # for i in range(10):  # 10 central repeats
 #     x = 0

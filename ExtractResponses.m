@@ -1,4 +1,4 @@
-n = 2000;
+n = 15000;
 
 positions = zeros(n, 3);
 responseups = zeros(n, 192);
