@@ -1,9 +1,7 @@
-% Choose 5k or 10k training dataset
-% load('Extracted/Random/DepthsTrained5k.mat');
-load('Extracted/Random/DepthsTrained10k.mat');
+%load('Extracted/Random/depthstrained.mat');
 
 figure();
-colors = 1/255*[27 158 119; 217 95 2; 117 112 179];
+colors = 1/255*[27 158 119; 217 95 2; 117 ]
 
 %% MeanNegPos for error bar
 mnp_5 = zeros(3);
@@ -31,12 +29,11 @@ mnp_20(:,3) = [max(trainmeansd20(:,1))-mnp_20(1,1); max(valmeansd20(:,1))-mnp_20
 mnp_20 = 1000*mnp_20;
 
 %% plot
-
-b = bar([mnp_5(:,1) mnp_10(:,1) mnp_15(:,1) mnp_20(:,1)].');
-b(1).FaceColor = colors(1,:);
-b(2).FaceColor = colors(2,:);
-b(3).FaceColor = colors(3,:);
-
+% bar(1000*[trainmeansd05(1) valmeansd05(1) testmeansd05(1);...
+%     trainmeansd10(1) valmeansd10(1) testmeansd10(1);...
+%     trainmeansd15(1) valmeansd15(1) testmeansd15(1);...
+%     trainmeansd20(1) valmeansd20(1) testmeansd20(1)]);
+bar([mnp_5(:,1) mnp_10(:,1) mnp_15(:,1) mnp_20(:,1)].', 'LineStyle', 'none');
 hold on
 errorbar([0.78; 1; 1.22], mnp_5(:,1),...
     mnp_5(:,2), mnp_5(:,3), 'linestyle', 'none', 'linewidth', 2,...
@@ -57,4 +54,3 @@ box off;
 legend({'Training'; 'Validation'; 'Test'}, 'orientation', 'horizontal');
 legend boxoff;
 set(gcf, 'Position', [447.4000  614.6000  769.6000  243.4000]);
-ylim([0 30]);
