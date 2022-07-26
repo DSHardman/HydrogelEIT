@@ -79,49 +79,20 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
         sgtitle('Train');
     end
     trainmeans = mean(abs(errors));
-
-    % Calculate depth percentage
     sum = 0;
     for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
-        if preddepth == target(i,3)
-            sum = sum + 1;
-        end
+        preddep = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
     end
-    depthpercent(1) = sum*100/length(pred);
-    %
 
-    [errors, pred, target] = calculateErrors(XVal, YVal, ValPositions, net, figs);
+    [errors, ~, ~] = calculateErrors(XVal, YVal, ValPositions, net, figs);
     if figs
         sgtitle('Validation');
     end
     valmeans = mean(abs(errors));
-
-    % Calculate depth percentage
-    sum = 0;
-    for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
-        if preddepth == target(i,3)
-            sum = sum + 1;
-        end
-    end
-    depthpercent(2) = sum*100/length(pred);
-    %
 
     [errors, pred, target] = calculateErrors(XTest, YTest, TestPositions, net, figs);
     if figs
         sgtitle('Test');
     end
     testmeans = mean(abs(errors));
-
-    % Calculate depth percentage
-    sum = 0;
-    for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
-        if preddepth == target(i,3)
-            sum = sum + 1;
-        end
-    end
-    depthpercent(3) = sum*100/length(pred);
-    %
 end
