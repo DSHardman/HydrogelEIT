@@ -81,14 +81,14 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     trainmeans = mean(abs(errors));
 
     % Calculate depth percentage
-    sum = 0;
+    sums = 0;
     for i = 1:length(pred)
         preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
         if preddepth == target(i,3)
-            sum = sum + 1;
+            sums = sums + 1;
         end
     end
-    depthpercent(1) = sum*100/length(pred);
+    depthpercent(1) = sums*100/length(pred);
     %
 
     [errors, pred, target] = calculateErrors(XVal, YVal, ValPositions, net, figs);
@@ -98,14 +98,14 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     valmeans = mean(abs(errors));
 
     % Calculate depth percentage
-    sum = 0;
+    sums = 0;
     for i = 1:length(pred)
         preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
         if preddepth == target(i,3)
-            sum = sum + 1;
+            sums = sums + 1;
         end
     end
-    depthpercent(2) = sum*100/length(pred);
+    depthpercent(2) = sums*100/length(pred);
     %
 
     [errors, pred, target] = calculateErrors(XTest, YTest, TestPositions, net, figs);
@@ -115,13 +115,13 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     testmeans = mean(abs(errors));
 
     % Calculate depth percentage
-    sum = 0;
+    sums = 0;
     for i = 1:length(pred)
         preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
         if preddepth == target(i,3)
-            sum = sum + 1;
+            sums = sums + 1;
         end
     end
-    depthpercent(3) = sum*100/length(pred);
+    depthpercent(3) = sums*100/length(pred);
     %
 end
