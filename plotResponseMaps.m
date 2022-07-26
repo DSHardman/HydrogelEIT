@@ -7,7 +7,7 @@ for i = 1:size(responsedowns, 1)
     magnitudes(i,:) = tanh(magnitudes(i,:));
 end
 
-for i = 115:192
+for i = 115:150
     subplot(1,2,1);
     plotProbes(lookup,i);
 
@@ -20,7 +20,7 @@ for i = 115:192
     %caxis([0 max(magnitudes(:,i))/5]);
     %caxis([-1 1]);
     title(string(i));
-    set(gcf, 'Position', [636 468 839 510]);
+    set(gcf, 'Position', [636 268 839 510]);
     pause();
     clf
 end

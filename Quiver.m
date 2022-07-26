@@ -1,3 +1,5 @@
+%% Rectangle
+
 X = [];
 Y = [];
 U = [];
@@ -34,3 +36,40 @@ quiver(X,Y,U,V, 'off');
 % 
 % errors = 1000*rssq([positions(P(9001:end),1:2) - ypred(P(9001:end),:)].').';
 % mean(errors)
+
+%% Circle
+
+load('Extracted/Random/DepthsQuiver5k.mat');
+subplot = @(m,n,p)subtightplot(m,n,p,[0.05 0.001], [0.05 0.05], [0.01 0.01]);
+
+figure();
+
+subplot(1,4,1);
+plotQuiver(target5, pred5);
+title('5 mm');
+
+subplot(1,4,2);
+plotQuiver(target10, pred10);
+title('10 mm');
+
+subplot(1,4,3);
+plotQuiver(target15, pred15);
+title('15 mm');
+
+subplot(1,4,4);
+plotQuiver(target20, pred20);
+title('20 mm');
+
+function plotQuiver(target, pred)
+    viscircles([0 0], 0.07, 'color', 'k', 'LineWidth', 1);
+    hold on
+    quiver(target(:,1), target(:,2), pred(:,1)-target(:,1), pred(:,2)-target(:,2), 'off', 'color', 'k');
+    scatter(target(:,1), target(:,2), 50, 'k', 'filled');
+    scatter(pred(:,1), pred(:,2), 50, 'r', 'filled');
+    xlim([-0.085 0.085]);
+    ylim([-0.085 0.085]);
+    axis square
+    set(gca, 'XTick', [], 'YTick', [], 'XColor', [1 1 1], 'YColor', [1 1 1], 'FontSize', 13);
+    box off
+    set(gcf, 'Position', 1000*[0.0730    0.3522    1.3752    0.3856]);
+end
