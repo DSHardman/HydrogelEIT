@@ -83,7 +83,7 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     % Calculate depth percentage
     sums = 0;
     for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
+        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.02);
         if preddepth == target(i,3)
             sums = sums + 1;
         end
@@ -100,7 +100,7 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     % Calculate depth percentage
     sums = 0;
     for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
+        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.02);
         if preddepth == target(i,3)
             sums = sums + 1;
         end
@@ -117,7 +117,7 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net, depthperce
     % Calculate depth percentage
     sums = 0;
     for i = 1:length(pred)
-        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.002);
+        preddepth = min(max((round(200*pred(i,3))/200), 0.005), 0.02);
         if preddepth == target(i,3)
             sums = sums + 1;
         end
