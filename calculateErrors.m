@@ -5,7 +5,7 @@ function [errors, pred, target] = calculateErrors(X, target, positions, net, fig
     %% Make predictions
     ypred = predict(net, X);
 
-    %% TODO Convert predictions to desired format
+    %% Convert predictions to desired format
     pred = zeros(size(ypred));
     pred(:,1) = ypred(:,1).*0.07;
     pred(:,2) = ypred(:,2).*0.07;

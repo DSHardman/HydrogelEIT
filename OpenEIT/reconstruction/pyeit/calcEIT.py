@@ -51,7 +51,6 @@ def plotEIT(inp_path, ref_path):
         eit = jac.JAC(mesh_obj, el_pos, ex_mat=ex_mat, step=step,
                       perm=1., parser='std')
         eit.setup(p=0.5, lamb=0.01, method='kotre')
-
         ds = eit.solve(eit_input, eit_ref, normalize=True)
         ds = sim2pts(pts, tri, np.real(ds))
     elif sys.argv[1] == 'bp':
@@ -78,8 +77,8 @@ def plotEIT(inp_path, ref_path):
             x2 = y[i]
             y[i] = x[i]
             x[i] = x2
-            # im = ax.tripcolor(x, y, tri, ds, shading='flat')
-            im = ax.tripcolor(x, y, tri, ds, cmap=plt.cm.viridis)
+        im = ax.tripcolor(x, y, tri, ds, cmap=plt.cm.viridis)
+        #ax.tricontour(x, y, tri, ds, cmap=plt.cm.binary)
 
     # fig.colorbar(im)
     ax.set_aspect('equal')
