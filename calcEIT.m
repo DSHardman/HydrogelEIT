@@ -6,6 +6,7 @@ function discrepancy = calcEIT(signal, reference, solver, position)
     save('OpenEIT\reconstruction\pyeit\temp\response.mat',"signal");
     save('OpenEIT\reconstruction\pyeit\temp\reference.mat',"reference");
     % evalc supresses output to cmd window: careful with error handling...
+%     system('python OpenEIT\reconstruction\pyeit\calcEIT.py '  + solver);
     evalc("system('python OpenEIT\reconstruction\pyeit\calcEIT.py '  + solver);");
     % imshow(imread('OpenEIT\reconstruction\pyeit\temp\outputimg.png'));
     im = imread('OpenEIT\reconstruction\pyeit\temp\outputimg.png');
