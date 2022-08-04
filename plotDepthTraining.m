@@ -1,6 +1,6 @@
 % Choose 5k or 10k training dataset
-% load('Extracted/Random/DepthsTrained5k.mat');
-load('Extracted/Random/DepthsTrained10k.mat');
+% load('Extracted/Random/Trained/DepthsTrained5k.mat');
+load('Extracted/Random/Trained/DepthsTrained10k.mat');
 
 figure();
 colors = 1/255*[27 158 119; 217 95 2; 117 112 179];
