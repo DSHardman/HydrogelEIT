@@ -4,6 +4,8 @@
 .DS_Store?
 /.idea
 /responses
-*/responses
-*/membraneplots
-*/Videos
+OpenEIT/reconstruction/pyeit/responses
+OpenEIT/reconstruction/pyeit/membraneplots
+OpenEIT/reconstruction/pyeit/temp
+/Videos
+/Media
