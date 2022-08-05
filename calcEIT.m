@@ -11,8 +11,12 @@ function [discrepancy, eitpred] = calcEIT(signal, reference, solver, position)
     % imshow(imread('OpenEIT\reconstruction\pyeit\temp\outputimg.png'));
     im = imread('OpenEIT\reconstruction\pyeit\temp\outputimg.png');
     im = im(60:329,161:430,:);
-    darkval = min(min(im2gray(im)));
-    [rowVal, colVal] = find(im2gray(im) == darkval);
+
+
+%     darkval = min(min(im2gray(im)));
+    % find lightest pixel that isn't the pure white border
+    lightval = max(max(mod(im2gray(im),254)));
+    [rowVal, colVal] = find(im2gray(im) == lightval);
     eitpred = [mean(colVal) mean(rowVal)];
 %     imshow(im);
 %     hold on
@@ -24,8 +28,8 @@ function [discrepancy, eitpred] = calcEIT(signal, reference, solver, position)
         %title('Depth = '+string(position(3)*100)+'cm');
     end
 
-    eitpred = [eitpred(1)*171/270 eitpred(2)*171/270];
-    discrepancy = norm(eitpred - [xy(1) 270-xy(2)])*171/270;
+    eitpred = [eitpred(1)*171/270 eitpred(2)*171/270] - [171/2 171/2];
+    discrepancy = norm([eitpred(1) -eitpred(2)] - position(1:2)*1000);
 
     %exportgraphics(gcf, 'output.eps', 'BackgroundColor','none');
 end
