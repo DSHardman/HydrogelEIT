@@ -63,8 +63,11 @@ title('20 mm');
 %% EIT Backprojected: takes a long time to run
 
 eitpred5 = eitpredictions(target5, positions, responseups, responsedowns);
+fprintf("5 done\n");
 eitpred10 = eitpredictions(target10, positions, responseups, responsedowns);
+fprintf("10 done\n");
 eitpred15 = eitpredictions(target15, positions, responseups, responsedowns);
+fprintf("15 done\n");
 eitpred20 = eitpredictions(target20, positions, responseups, responsedowns);
 
 %% plot EIT quivers
@@ -87,8 +90,8 @@ subplot(1,4,4);
 plotQuiver(target20, eitpred20);
 title('20 mm');
 %%
-function eitpred = eitpredictions(target, positions, responseups, responsedowns)
-    pred = zeros(size(target, 1), 2);
+function eitpreds = eitpredictions(target, positions, responseups, responsedowns)
+    eitpreds = zeros(size(target, 1), 2);
 
     % find index corresponding to NNs test set
     for i = 1:size(target, 1)
@@ -102,13 +105,13 @@ function eitpred = eitpredictions(target, positions, responseups, responsedowns)
             responseups(j,:), "bp", positions(j,:));
     
         % Reflect to account for image coordinate system
-        eitpred(i,:) = [eitpred(1) -eitpred(2)]./1000;
+        eitpreds(i,:) = [eitpred(1) -eitpred(2)]./1000;
     
     end
 end
 
 function plotQuiver(target, pred)
-    %viscircles([0 0], 0.07, 'color', 'k', 'LineWidth', 1);
+    viscircles([0 0], 0.07, 'color', 'k', 'LineWidth', 1);
     hold on
     quiver(target(:,1), target(:,2), pred(:,1)-target(:,1), pred(:,2)-target(:,2), 'off', 'color', 'k');
     hold on
