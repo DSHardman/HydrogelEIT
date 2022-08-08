@@ -68,6 +68,7 @@ def plotEIT(inp_path, ref_path):
         raise Exception("Invalid Solver")
 
     # plot EIT reconstruction
+    ds -= np.mean(ds)
     fig, ax = plt.subplots(figsize=(6, 4))
     if sys.argv[1] == 'greit':
         im = ax.imshow(np.rot90(np.fliplr(np.real(ds)), k=3), interpolation='none', cmap=plt.cm.viridis)
@@ -81,6 +82,7 @@ def plotEIT(inp_path, ref_path):
         #ax.tricontour(x, y, tri, ds, cmap=plt.cm.binary)
 
     # fig.colorbar(im)
+    im.set_clim(vmin=-1e7, vmax=1e7)
     ax.set_aspect('equal')
     plt.savefig("OpenEIT/reconstruction/pyeit/temp/outputimg.png", dpi=96)
     # plt.savefig("OpenEIT/reconstruction/pyeit/temp/outputimg.eps", format='eps')

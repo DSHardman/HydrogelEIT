@@ -18,18 +18,22 @@ function [discrepancy, eitpred] = calcEIT(signal, reference, solver, position)
     lightval = max(max(mod(im2gray(im),254)));
     [rowVal, colVal] = find(im2gray(im) == lightval);
     eitpred = [mean(colVal) mean(rowVal)];
-%     imshow(im);
-%     hold on
+    imshow(im);
+    hold on
 %     scatter(eitpred(1), eitpred(2), 100, 'r', 'filled');
     if nargin == 4
         assert(length(position)==3);
         xy = (position(1:2) + 0.171/2)*1000*270./171;
-%         scatter(xy(1), 270-xy(2), 100, 'k', 'filled');
+        scatter(xy(1), 270-xy(2), 100, 'k', 'filled');
         %title('Depth = '+string(position(3)*100)+'cm');
     end
 
     eitpred = [eitpred(1)*171/270 eitpred(2)*171/270] - [171/2 171/2];
-    discrepancy = norm([eitpred(1) -eitpred(2)] - position(1:2)*1000);
+    if nargin == 4
+        discrepancy = norm([eitpred(1) -eitpred(2)] - position(1:2)*1000);
+    else
+        discrepancy = nan;
+    end
 
     %exportgraphics(gcf, 'output.eps', 'BackgroundColor','none');
 end
