@@ -18,23 +18,23 @@ function [trainmeans, valmeans, testmeans, errors, pred, target, net] = sensorTr
     out(:,3) = (out(:,3)-0.005)./0.015;
     
     %% Extract training, validation, and test data
-    assert(sum(ratio)==1);
+    %assert(sum(ratio)==1);
 
     % Training data
-    P=randperm(length(inp)); % randomise order first to avoid temporal effects
-    XTrain=inp(P(1:round(ratio(1)*length(inp))),:);
-    YTrain=out(P(1:round(ratio(1)*length(inp))),:);
-    TrainPositions = positions(P(1:round(ratio(1)*length(inp))),:);
+    P=randperm(size(inp,1)); % randomise order first to avoid temporal effects
+    XTrain=inp(P(1:round(ratio(1)*size(inp,1))),:);
+    YTrain=out(P(1:round(ratio(1)*size(inp,1))),:);
+    TrainPositions = positions(P(1:round(ratio(1)*size(inp,1))),:);
     
     % Validation data
-    XVal=inp(P(round(ratio(1)*length(inp))+1:round(sum(ratio(1:2))*length(inp))),:);
-    YVal=out(P(round(ratio(1)*length(inp))+1:round(sum(ratio(1:2))*length(inp))),:);
-    ValPositions = positions(P(round(ratio(1)*length(inp))+1:round(sum(ratio(1:2))*length(inp))),:);
+    XVal=inp(P(round(ratio(1)*size(inp,1))+1:round(sum(ratio(1:2))*size(inp,1))),:);
+    YVal=out(P(round(ratio(1)*size(inp,1))+1:round(sum(ratio(1:2))*size(inp,1))),:);
+    ValPositions = positions(P(round(ratio(1)*size(inp,1))+1:round(sum(ratio(1:2))*size(inp,1))),:);
     
     % Test data
-    XTest=inp(P(round(sum(ratio(1:2))*length(inp)+1):end),:);
-    YTest=out(P(round(sum(ratio(1:2))*length(inp)+1):end),:);
-    TestPositions = positions(P(round(sum(ratio(1:2))*length(inp)+1):end),:);
+    XTest=inp(P(round(sum(ratio(1:2))*size(inp,1)+1):end),:);
+    YTest=out(P(round(sum(ratio(1:2))*size(inp,1)+1):end),:);
+    TestPositions = positions(P(round(sum(ratio(1:2))*size(inp,1)+1):end),:);
 
 
     %% Build network architecture and training options

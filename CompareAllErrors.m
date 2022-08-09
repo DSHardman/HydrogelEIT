@@ -10,7 +10,8 @@ for i = 1:size(colors, 1)
     hold on
 end
 
-my_shaded(1:15000, eiterror, 200, colors(1,:), 0.2);
+% my_shaded(1:15000, eiterror, 200, colors(1,:), 0.2);
+my_shaded(1:15000, 1000*discrepancies, 200, colors(1,:), 0.2);
 
 load("Extracted/Random/Trained/AllTrained15k.mat");
 output = netpredictions(net, response, response);

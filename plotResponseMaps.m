@@ -1,5 +1,7 @@
-magnitudes = responsedowns - responseups;
-for i = 1:size(responsedowns, 1)
+n = 2000; % How many points should be used in constructing sensitivity maps?
+
+magnitudes = responsedowns(1:n,:) - responseups(1:n,:);
+for i = 1:size(magnitudes, 1)
     [theta, rho] = cart2pol(positions(i,1), positions(i,2));
     % magnitudes(i,:) = magnitudes(i,:)*(1 - 1/(74 - rho*1000));
     magnitudes(i,:) = abs(magnitudes(i,:)*(1.1 - (rho*1000)/70));
@@ -12,7 +14,7 @@ for i = 115:150
     plotProbes(lookup,i);
 
     subplot(1,2,2);
-    scatter(positions(:,1), positions(:,2), 10, magnitudes(:,i), 'filled');
+    scatter(positions(1:n,1), positions(1:n,2), 10, magnitudes(:,i), 'filled');
     xlim([-0.08 0.08]);
     ylim([-0.08 0.08]);
     axis square
