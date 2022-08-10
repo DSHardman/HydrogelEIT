@@ -20,11 +20,11 @@ function [discrepancy, eitpred] = calcEIT(signal, reference, solver, position)
     eitpred = [mean(colVal) mean(rowVal)];
     imshow(im);
     hold on
-%     scatter(eitpred(1), eitpred(2), 100, 'r', 'filled');
+    scatter(eitpred(1), eitpred(2), 100, 'r', 'filled');
     if nargin == 4
         assert(length(position)==3);
         xy = (position(1:2) + 0.171/2)*1000*270./171;
-        scatter(xy(1), 270-xy(2), 100, 'k', 'filled');
+        scatter(xy(1), 270-xy(2), 100, 'w', 'filled');
         %title('Depth = '+string(position(3)*100)+'cm');
     end
 

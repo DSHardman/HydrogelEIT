@@ -82,7 +82,7 @@ def plotEIT(inp_path, ref_path):
         #ax.tricontour(x, y, tri, ds, cmap=plt.cm.binary)
 
     # fig.colorbar(im)
-    im.set_clim(vmin=-1e7, vmax=1e7)
+    # im.set_clim(vmin=-1e7, vmax=1e7) # scale used for baseline animations
     ax.set_aspect('equal')
     plt.savefig("OpenEIT/reconstruction/pyeit/temp/outputimg.png", dpi=96)
     # plt.savefig("OpenEIT/reconstruction/pyeit/temp/outputimg.eps", format='eps')

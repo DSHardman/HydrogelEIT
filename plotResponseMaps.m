@@ -12,16 +12,31 @@ end
 for i = 115:150
     subplot(1,2,1);
     plotProbes(lookup,i);
+    title(string(i));
 
     subplot(1,2,2);
-    scatter(positions(1:n,1), positions(1:n,2), 10, magnitudes(:,i), 'filled');
+%     scatter(positions(1:n,1), positions(1:n,2), 10, magnitudes(:,i), 'filled');
+    interpolant = scatteredInterpolant(positions(1:n,1),...
+        positions(1:n,2),magnitudes(:,i));
+    [xx,yy] = meshgrid(linspace(-0.07,0.07,1000));
+    mag_interp = interpolant(xx,yy);
+    % Remove points from outside circle
+    for k = 1:size(xx,1)
+        for j = 1:size(xx,2)
+            if xx(k,j)^2 + yy(k,j)^2 > 0.07^2
+                mag_interp(k,j) = nan;
+            end
+        end
+    end
+    contourf(xx,yy,mag_interp, 20, 'LineStyle', 'none');
+
     xlim([-0.08 0.08]);
     ylim([-0.08 0.08]);
     axis square
     colorbar
     %caxis([0 max(magnitudes(:,i))/5]);
     %caxis([-1 1]);
-    title(string(i));
+    set(gca, 'visible', 'off');
     set(gcf, 'Position', [636 268 839 510]);
     pause();
     clf
