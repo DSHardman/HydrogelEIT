@@ -44,19 +44,19 @@ subplot = @(m,n,p)subtightplot(m,n,p,[0.05 0.001], [0.05 0.05], [0.01 0.01]);
 
 figure();
 
-subplot(1,4,1);
+subplot(2,2,1);
 plotQuiver(target5, pred5);
 title('5 mm');
 
-subplot(1,4,2);
+subplot(2,2,2);
 plotQuiver(target10, pred10);
 title('10 mm');
 
-subplot(1,4,3);
+subplot(2,2,3);
 plotQuiver(target15, pred15);
 title('15 mm');
 
-subplot(1,4,4);
+subplot(2,2,4);
 plotQuiver(target20, pred20);
 title('20 mm');
 
@@ -115,10 +115,10 @@ function plotQuiver(target, pred)
     hold on
     quiver(target(:,1), target(:,2), pred(:,1)-target(:,1), pred(:,2)-target(:,2), 'off', 'color', 'k');
     hold on
-    scatter(target(:,1), target(:,2), 50, 'k', 'filled');
-    scatter(pred(:,1), pred(:,2), 50, 'r', 'filled');
-    %xlim([-0.085 0.085]);
-    %ylim([-0.085 0.085]);
+    scatter(target(:,1), target(:,2), 30, 'k', 'filled');
+    scatter(pred(:,1), pred(:,2), 30, 'r', 'filled');
+    xlim([-0.085 0.085]);
+    ylim([-0.085 0.085]);
     axis square
     set(gca, 'XTick', [], 'YTick', [], 'XColor', [1 1 1], 'YColor', [1 1 1], 'FontSize', 13);
     box off

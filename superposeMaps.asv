@@ -51,17 +51,22 @@ function discrepancies = superposeMaps(n, responsedowns, responseups, positions,
 %         scatter(positions(1:n,1), positions(1:n,2), 20, values, 'filled');
         interpolant = scatteredInterpolant(positions(1:n,1),...
             positions(1:n,2),values);
-        [xx,yy] = meshgrid(linspace(-0.07,0.07,1000));
+        [xx,yy] = meshgrid(linspace(-0.07,0.07,128));
         value_interp = interpolant(xx,yy);
+
+        value_interp = value_interp - min(min(value_interp));
+        value_interp = value_interp./(max(max(value_interp)));
 
         % Remove points from outside circle
         for i = 1:size(xx,1)
             for j = 1:size(xx,2)
                 if xx(i,j)^2 + yy(i,j)^2 > 0.07^2
-                    value_interp(i,j) = nan;
+                    value_interp(i,j) = 0;
                 end
             end
         end
+        response = value_interp;
+        save('CNN/.mat', 'value_interp');
         contourf(xx,yy,value_interp, 20, 'LineStyle', 'none');
 
         hold on;
@@ -76,7 +81,7 @@ function discrepancies = superposeMaps(n, responsedowns, responseups, positions,
         axis square
         set(gca,'visible','off')
         set(gcf, 'Position', [488.0000  579.4000  372.2000  278.6000]);
-%         exportgraphics(gcf, string(i) + "sens.png", 'BackgroundColor','w', 'Resolution',300);
+        exportgraphics(gcf, string(i) + "sens.png", 'BackgroundColor','w', 'Resolution',300);
     end
 end
 
