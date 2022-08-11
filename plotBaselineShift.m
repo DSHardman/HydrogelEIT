@@ -1,3 +1,5 @@
+%% Backprojection
+
 v = VideoWriter('baseshift');
 v.FrameRate = 30;
 open(v)
@@ -14,5 +16,22 @@ for i = 20:20:15000
 
     writeVideo(v,getframe(gcf));
     title(string(i));
+end
+close(v)
+
+%% Sensitivity Maps
+
+v = VideoWriter('baseshiftsens10000');
+v.FrameRate = 30;
+open(v)
+for i = 20:20:15000
+    if mod(i,1000) == 0
+        i
+    end
+    superposeMaps(10000, responsedowns, responseups, positions, i, 1);
+    writeVideo(v,getframe(gcf));
+    title(string(i));
+    caxis([-5e5 10e5]);
+    clf();
 end
 close(v)
