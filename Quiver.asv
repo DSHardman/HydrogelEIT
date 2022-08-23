@@ -115,25 +115,19 @@ end
 %% Plot sensitivity quivers
 figure();
 sensitivityQuiverSet(positions, predictions(:, 1:2), 0);
-exportgraphics(gcf, 'dq1.eps', 'BackgroundColor','none', 'Resolution', 300);
+exportgraphics('', 'BackgroundColor','none', 'Resolution',300')
 figure();
 sensitivityQuiverSet(positions, predictions(:, 3:4), 2500);
-exportgraphics(gcf, 'dq2.eps', 'BackgroundColor','none', 'Resolution', 300);
 figure();
 sensitivityQuiverSet(positions, predictions(:, 5:6), 5000);
-exportgraphics(gcf, 'dq3.eps', 'BackgroundColor','none', 'Resolution', 300);
 figure();
 sensitivityQuiverSet(positions, predictions(:, 7:8), 7500);
-exportgraphics(gcf, 'dq4.eps', 'BackgroundColor','none', 'Resolution', 300);
 figure();
 sensitivityQuiverSet(positions, predictions(:, 9:10), 10000);
-exportgraphics(gcf, 'dq5.eps', 'BackgroundColor','none', 'Resolution', 300);
 figure();
 sensitivityQuiverSet(positions, predictions(:, 11:12), 12500);
-exportgraphics(gcf, 'dq6.eps', 'BackgroundColor','none', 'Resolution', 300);
 figure();
 sensitivityQuiverSet(positions, predictions(:, 13:14), 14500);
-exportgraphics(gcf, 'dq7.eps', 'BackgroundColor','none', 'Resolution', 300);
 
 %%
 function eitpreds = eitpredictions(target, positions, responseups, responsedowns)
