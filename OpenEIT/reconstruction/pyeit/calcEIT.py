@@ -51,6 +51,7 @@ def plotEIT(inp_path, ref_path):
         eit = jac.JAC(mesh_obj, el_pos, ex_mat=ex_mat, step=step,
                       perm=1., parser='std')
         eit.setup(p=0.5, lamb=0.01, method='kotre')
+        # eit.setup(p=0.5, lamb=0.4, method='kotre') # Used for openEIT defaults
         ds = eit.solve(eit_input, eit_ref, normalize=True)
         ds = sim2pts(pts, tri, np.real(ds))
     elif sys.argv[1] == 'bp':
