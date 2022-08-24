@@ -34,8 +34,8 @@ function [discrepancies, prediction] = superposeMaps(n, responsedowns, responseu
     else
         % single case, with plot
         assert(nargin == 6);
-        weights = responsedowns(plotnum,:) - responseups(plotnum,:);
-%         weights = responseups(plotnum,:) - responseups(1,:); % used for baseline comparisons
+%         weights = responsedowns(plotnum,:) - responseups(plotnum,:);
+        weights = responseups(plotnum,:) - responseups(1,:); % used for baseline comparisons
 %         weights = responseups(plotnum,:) - responseups(plotnum-20,:); % monitoring damage
         
         magnitudes = responsedowns(1:n,:) - responseups(1:n,:);
@@ -75,9 +75,11 @@ function [discrepancies, prediction] = superposeMaps(n, responsedowns, responseu
         xlim([-0.08 0.08]);
         ylim([-0.08 0.08]);
         axis square
-%         set(gca,'visible','off');
+        set(gca,'visible','off');
+% colorbar
+caxis([-2e5 5e5]);
         set(gcf, 'Position', [488.0000  579.4000  372.2000  278.6000]);
-%         exportgraphics(gcf, string(plotnum) + "sens.png", 'BackgroundColor','w', 'Resolution',300);
+        exportgraphics(gcf, string(plotnum) + "sens.png", 'BackgroundColor','w', 'Resolution',300);
     end
 end
 
