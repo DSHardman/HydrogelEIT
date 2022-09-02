@@ -3,8 +3,8 @@
 
 <svg
    width="521.6673mm"
-   height="253.87793mm"
-   viewBox="0 0 521.66729 253.87793"
+   height="255.3148mm"
+   viewBox="0 0 521.66729 255.3148"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
@@ -26,11 +26,11 @@
      showgrid="false"
      showborder="false"
      inkscape:zoom="0.4692965"
-     inkscape:cx="1229.4999"
-     inkscape:cy="659.49779"
-     inkscape:window-width="1920"
-     inkscape:window-height="1121"
-     inkscape:window-x="-9"
+     inkscape:cx="715.96528"
+     inkscape:cy="278.0758"
+     inkscape:window-width="2400"
+     inkscape:window-height="1271"
+     inkscape:window-x="2391"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -520,7 +520,7 @@
            id="tspan2678-9"
            style="stroke-width:0.169121"
            x="92.843704"
-           y="258.80087">Reconstructed</tspan></text>
+           y="258.80087">Backprojection</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:6.76483px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.169121"
@@ -531,7 +531,7 @@
            id="tspan2678-9-1"
            style="stroke-width:0.169121"
            x="159.01691"
-           y="258.80087">Predicted</tspan></text>
+           y="258.80087">Neural Network</tspan></text>
     </g>
     <g
        id="g973"
@@ -1663,7 +1663,7 @@
          id="tspan2678-2"
          style="stroke-width:0.187674"
          x="67.587982"
-         y="21.316504">0 presses</tspan></text>
+         y="21.316504">10 presses</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.50696px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.187674"
@@ -1674,7 +1674,7 @@
          id="tspan2678-2-4"
          style="stroke-width:0.187674"
          x="188.24365"
-         y="21.316504">5000 presses</tspan></text>
+         y="21.316504">5010 presses</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.50696px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.187674"
@@ -1685,7 +1685,7 @@
          id="tspan2678-2-1"
          style="stroke-width:0.187674"
          x="309.66608"
-         y="21.316504">10000 presses</tspan></text>
+         y="21.316504">10010 presses</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.50696px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.187674"

@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="339.5705mm"
+   width="354.58691mm"
    height="320.11554mm"
-   viewBox="0 0 339.5705 320.11554"
+   viewBox="0 0 354.58692 320.11554"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
@@ -24,9 +24,9 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="false"
-     inkscape:zoom="0.46929649"
-     inkscape:cx="634.99302"
-     inkscape:cy="495.42241"
+     inkscape:zoom="0.33184273"
+     inkscape:cx="672.00508"
+     inkscape:cy="317.92168"
      inkscape:window-width="1920"
      inkscape:window-height="1121"
      inkscape:window-x="-9"
@@ -103,7 +103,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(93.67362,151.5581)">
+     transform="translate(108.69004,151.5581)">
     <g
        id="g86078"
        transform="matrix(0.04846782,0,0,-0.04846782,-129.72852,-38.139005)">
@@ -57311,5 +57311,49 @@
          x="-53.390549"
          y="-30.000639"
          id="tspan170973-9">500</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.72098px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.218025"
+       x="-91.043678"
+       y="-3.7042758"
+       id="text170044-8-2-0"><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.218025"
+         x="-91.043678"
+         y="-3.7042758"
+         id="tspan170973-9-3">5 mm</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.72098px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.218025"
+       x="-93.815826"
+       y="47.053944"
+       id="text170044-8-2-0-0"><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.218025"
+         x="-93.815826"
+         y="47.053944"
+         id="tspan170973-9-3-0">10 mm</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.72098px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.218025"
+       x="-93.815826"
+       y="97.80072"
+       id="text170044-8-2-0-4"><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.218025"
+         x="-93.815826"
+         y="97.80072"
+         id="tspan170973-9-3-1">15 mm</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.72098px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.218025"
+       x="-93.815826"
+       y="148.55011"
+       id="text170044-8-2-0-6"><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.218025"
+         x="-93.815826"
+         y="148.55011"
+         id="tspan170973-9-3-3">20 mm</tspan></text>
   </g>
 </svg>

@@ -37,7 +37,7 @@ hold on
 my_shaded(1:15000, 1000*discrepancies500(:,1), 200, colors(2,:), 0.2);
 % my_shaded(1:15000, 1000*discrepancies500(:,2), 200, colors(3,:), 0.2);
 % my_shaded(1:15000, 1000*discrepancies500(:,3), 200, colors(4,:), 0.2);
-legend({'Neural Network';'Sensitivity Reconstructions'}, 'location', 'n', 'orientation', 'vertical');
+legend({'Neural Network';'WAM'}, 'location', 'n', 'orientation', 'vertical');
 % legend({'NN';'m=1';'m=3';'m=10'}, 'location', 'n', 'orientation', 'horizontal');
 legend boxoff
 title('500 Training Points');

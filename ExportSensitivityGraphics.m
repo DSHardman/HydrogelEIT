@@ -5,6 +5,6 @@ for i = 10001
     output = netpredictions(net, responseups(i,:)-responsedowns(i,:), responseups(1:500,:)-responsedowns(1:500,:));
     scatter(output(1), output(2), 50, 'm', 'filled');
 %     exportgraphics(gcf, string(i) + "sens.eps", 'BackgroundColor','none');
-    exportgraphics(gcf, string(i) + "clearsens.png", 'BackgroundColor','w', 'Resolution',300);
-    clf;
+%     exportgraphics(gcf, string(i) + "clearsens.png", 'BackgroundColor','w', 'Resolution',300);
+%     clf;
 end
