@@ -34,8 +34,8 @@ function [discrepancies, prediction] = superposeMaps(n, responsedowns, responseu
     else
         % single case, with plot
         assert(nargin == 6);
-%         weights = responsedowns(plotnum,:) - responseups(plotnum,:);
-        weights = responseups(plotnum,:) - responseups(1,:); % used for baseline comparisons
+        weights = responsedowns(plotnum,:) - responseups(plotnum,:);
+%         weights = responseups(plotnum,:) - responseups(1,:); % used for baseline comparisons
 %         weights = responseups(plotnum,:) - responseups(plotnum-20,:); % monitoring damage
         
         magnitudes = responsedowns(1:n,:) - responseups(1:n,:);
