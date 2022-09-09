@@ -2,7 +2,7 @@
 % for each: trained NN, m=1, m=3, m=10
 % see superposeMaps.m
 
-subplot = @(m,n,p)subtightplot(m,n,p,[0.15 0.05], [0.12 0.08], [0.07 0.05]);
+subplot = @(m,n,p)subtightplot(m,n,p,[0.18 0.06], [0.12 0.08], [0.07 0.05]);
 
 response = responseups-responsedowns;
 
@@ -20,8 +20,8 @@ my_shaded(1:15000, 1000*discrepancies100(:,1), 200, colors(2,:), 0.2);
 % my_shaded(1:15000, 1000*discrepancies100(:,3), 200, colors(4,:), 0.2);
 title('100 Training Points');
 ylim([0 70]);
-ylabel('Localization Error (mm)');
 my_defaults();
+set(gca, 'FontSize', 18);
 
 subplot(2,3,2)
 plot(nan, 'lineWidth', 2, 'Color', colors(1,:));
@@ -44,6 +44,7 @@ title('500 Training Points');
 ylim([0 70]);
 xlabel('Press Number');
 my_defaults();
+set(gca, 'FontSize', 18);
 
 subplot(2,3,3)
 load("Extracted/Random/Trained/AllTrained1k.mat");
@@ -57,6 +58,7 @@ my_shaded(1:15000, 1000*discrepancies1000(:,1), 200, colors(2,:), 0.2);
 title('1000 Training Points');
 ylim([0 70]);
 my_defaults();
+set(gca, 'FontSize', 18);
 
 subplot(2,3,4)
 load("Extracted/Random/Trained/AllTrained2k.mat");
@@ -69,8 +71,10 @@ my_shaded(1:15000, 1000*discrepancies2000(:,1), 200, colors(2,:), 0.2);
 % my_shaded(1:15000, 1000*discrepancies2000(:,3), 200, colors(4,:), 0.2);
 title('2000 Training Points');
 ylim([0 70]);
-ylabel('Localization Error (mm)');
+ylabel(['                                   ' ...
+    'Localization Error (mm)']);
 my_defaults();
+set(gca, 'FontSize', 18);
 
 subplot(2,3,5)
 load("Extracted/Random/Trained/AllTrained5k.mat");
@@ -85,6 +89,7 @@ title('5000 Training Points');
 ylim([0 70]);
 xlabel('Press Number');
 my_defaults();
+set(gca, 'FontSize', 18);
 
 subplot(2,3,6)
 load("Extracted/Random/Trained/AllTrained10k.mat");
@@ -98,5 +103,6 @@ my_shaded(1:15000, 1000*discrepancies10000(:,1), 200, colors(2,:), 0.2);
 title('10000 Training Points');
 ylim([0 70]);
 my_defaults();
+set(gca, 'FontSize', 18);
 
 set(gcf, 'Position', 1e3*[0.2370    0.2786    1.0696    0.5794]);

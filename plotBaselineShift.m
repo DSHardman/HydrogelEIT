@@ -21,7 +21,7 @@
 
 %% Sensitivity Maps
 
-v = VideoWriter('baseshiftsens500_2');
+v = VideoWriter('baseshiftsens500_date');
 v.FrameRate = 30;
 open(v)
 for i = 20:20:15000
@@ -29,12 +29,13 @@ for i = 20:20:15000
         i
     end
     superposeMaps(500, responsedowns, responseups, positions, i, 1);
-    title(string(i));
+%     title(string(i));
+    title(string(alltimes(i)));
     set(gcf, 'color', 'w');
     set(gca, 'XTickLabels', [], 'YTickLabels', []);
     set(gca,'xcolor','none', 'ycolor', 'none', 'FontSize', 15);
     writeVideo(v,getframe(gcf));
-    caxis([-5e5 10e5]);
+    caxis([-2e5 5e5]);
     clf();
 end
 close(v)

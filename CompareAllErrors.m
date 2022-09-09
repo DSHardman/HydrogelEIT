@@ -34,10 +34,11 @@ my_shaded(1:15000, 1000*[rssq(output(:,1:2).' - positions(:,1:2).')].',...
     200, colors(2,:), 0.2);
 
 
-legend({'Reconstructed'; '2k'; '5k'; '10k'; '15k'},...
-    'Location', 'nw', 'Orientation', 'Horizontal', 'FontSize', 13);
+legend({'Backprojected'; '2k'; '5k'; '10k'; '15k'},...
+    'Location', 'nw', 'Orientation', 'Horizontal', 'FontSize', 18);
 legend boxoff
 my_defaults([349.0000  422.6000  744.0000  435.4000]);
+set(gca, 'FontSize', 18)
 xlabel('Press Number');
 ylabel('Localization Error (mm)');
 ylim([0 105]);
