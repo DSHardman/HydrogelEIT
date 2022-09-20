@@ -9,9 +9,9 @@ fullresponse = zeros(2*n, 192);
 % depth = ["10", "15", "10", "15", "10", "15", "10", "15", "10", "15"];
 
 for i = 0:n-1
-    position = readNPY('responses/randommembrane/position_superpose_' + string(i) + '.npy');
-    responseup = readNPY('responses/randommembrane/up_superpose_' + string(i) + '.npy');
-    responsedown = readNPY('responses/randommembrane/down_superpose_' + string(i) + '.npy');
+    position = readNPY('responses/ohmc8/position_ohmc_' + string(i) + '.npy');
+    responseup = readNPY('responses/ohmc8/up_ohmc_' + string(i) + '.npy');
+    responsedown = readNPY('responses/ohmc8/down_ohmc_' + string(i) + '.npy');
 
 %     responseup = readNPY('responses/multi/upmulti_C_' + suffix(i) + '_' + depth(i) + '.npy');
 %     responsedown = readNPY('responses/multi/downmulti_C_' + suffix(i) + '_' + depth(i) + '.npy');
