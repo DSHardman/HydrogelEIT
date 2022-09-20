@@ -1,0 +1,88 @@
+n = 8; % Number of electrodes
+
+clear device
+% Connect to board's serial port
+device = serialport("COM15", 115200);
+% Set board's mode
+if n == 8
+    load("Extracted/ohmc8.mat");
+    write(device, "c", "string");
+elseif n == 16
+    load("Extracted/ohmc16.mat");
+%     write(device, 'd', "char");
+else
+    error("Invalid number of electrodes\n");
+end
+
+% Set baseline when script is first run
+% readline(device);
+baselineresponse = getresponse(device, n);
+
+% Continue script until manually halted
+while (1)
+    % Measure current state
+    measuredresponse = getresponse(device, n);
+
+    % Calculate weights
+    weights = measuredresponse - baselineresponse;
+    weights = normalize(weights);
+    weights = tanh(weights);
+    
+    % Construct WAMs
+    magnitudes = responsedowns(1:n,:) - responseups(1:n,:);
+    for i = 1:size(magnitudes, 1)
+        magnitudes(i,:) = normalize(magnitudes(i,:));
+        magnitudes(i,:) = tanh(magnitudes(i,:));
+    end
+    values = zeros(n,1);
+    for i = 1:size(magnitudes, 2)
+        values = values + weights(i)*magnitudes(:,i);
+    end
+
+    interpolant = scatteredInterpolant(positions(1:n,1),...
+        positions(1:n,2),values);
+    [xx,yy] = meshgrid(linspace(-0.07,0.07,1000));
+    value_interp = interpolant(xx,yy);
+
+    % Remove points from outside circle
+    for i = 1:size(xx,1)
+        for j = 1:size(xx,2)
+            if xx(i,j)^2 + yy(i,j)^2 > 0.07^2
+                value_interp(i,j) = nan;
+            end
+        end
+    end
+
+    % Update plot
+    contourf(xx,yy,value_interp, 20, 'LineStyle', 'none');
+    xlim([-0.08 0.08]);
+    ylim([-0.08 0.08]);
+    axis square
+    set(gca, 'Visible', 'off');
+    set(gcf, 'Color', 'k', 'ToolBar', 'none', 'MenuBar', 'none');  
+    if n==8
+        text(-0.055, 0.08, 'Low Resolution - Faster', 'Color', 'w', 'FontSize', 30);
+        caxis([-15 15]);
+    else
+        text(-0.055, 0.08, 'High Resolution - Slower', 'Color', 'w', 'FontSize', 30);
+        caxis([-60 60]);
+    end
+    drawnow
+end
+
+function response = getresponse(device, n)
+if n == 8
+    m = 461;
+else
+    m = 2701;
+end
+    charresponse = read(device, m*2, "char");
+    charresponse = charresponse(find(charresponse=='m',1,'first'):find(charresponse=='m',1,'first')+m);
+    charresponse = charresponse(12:end-1);
+    indices = [1 find(charresponse==',')];
+    assert(length(indices) == (n-4)*n + 1);
+    response = zeros(1, length(indices)-1);
+    for i = 1:length(indices)-1
+        response(i) = str2double(charresponse(indices(i)+4:indices(i+1)-1));
+    end
+end
