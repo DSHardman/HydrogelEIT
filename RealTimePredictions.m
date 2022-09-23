@@ -59,7 +59,16 @@ while (1)
     end
 
     % Update plot
+    clf
     contourf(xx,yy,value_interp, 20, 'LineStyle', 'none');
+    % Find and plot maximum value
+    [vals, id1] = max(value_interp);
+    [maxval, id2] = max(vals);
+    if maxval > 12
+        hold on
+        scatter(xx(id1(id2), id2), yy(id1(id2), id2), 50, 'k', 'filled');
+    end
+
     xlim([-0.08 0.08]);
     ylim([-0.08 0.08]);
     axis square
