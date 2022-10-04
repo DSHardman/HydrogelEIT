@@ -64,7 +64,7 @@ while (1)
     % Find and plot maximum value
     [vals, id1] = max(value_interp);
     [maxval, id2] = max(vals);
-    if maxval > 12
+    if maxval > 11
         hold on
         scatter(xx(id1(id2), id2), yy(id1(id2), id2), 50, 'k', 'filled');
     end
