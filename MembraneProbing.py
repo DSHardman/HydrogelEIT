@@ -28,7 +28,7 @@ urnie.set_tcp(wp.probing_tcp)
 
 # Connect to EIT board
 serial_handler = OpenEIT.backend.SerialHandler(queue.Queue())
-serial_handler.connect('COM4')
+serial_handler.connect('COM5')
 serial_handler.setmode('c')
 serial_handler.start_recording()
 time.sleep(20)  # Give ample time to connect and start returning data
@@ -52,9 +52,9 @@ def pressrecord(x, y, depth, savestring):
     while serial_handler.updater != serial_state:
         pass  # wait for new set of readings to end
 
-    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'c')
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'a') #changed from c****
 
-    np.save('responses/ohmc8/up' + savestring, data)
+    np.save('responses/new/up' + savestring, data)
 
     downpose = np.add(zeropose, [x, y, -depth, 0, 0, 0])
     # downpose = np.add(startingpose, [0, 0, -(0.01+depth), 0, 0, 0])
@@ -68,10 +68,10 @@ def pressrecord(x, y, depth, savestring):
     while serial_handler.updater != serial_state:
         pass  # wait for new set of readings to end
 
-    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'c')
-
-    np.save('responses/ohmc8/position' + savestring, xy)
-    np.save('responses/ohmc8/down' + savestring, data)
+    data = OpenEIT.backend.serialhandler.parse_any_line(serial_handler.raw_text, 'a')
+   # print(data)
+    np.save('responses/new/position' + savestring, xy)
+    np.save('responses/new/down' + savestring, data)
 
     urnie.movel(startingpose, acc=0.01, vel=0.01)
 
@@ -94,9 +94,9 @@ def pressrecord(x, y, depth, savestring):
 #     pressrecord(x, y, depth, '_doubleheal2_' + str(i))
 #     print(i)
 
-for i in range(500):  # Randomise within circle
+for i in range(1000):  # Randomise within circle
 
-    radius = 70
+    radius = 60  #changed from 70
 
     # Select from random distribution within circle
     rho = radius*2
@@ -106,8 +106,8 @@ for i in range(500):  # Randomise within circle
         rho = np.sqrt((x*1000)**2 + (y*1000)**2)
 
     # depth = 0.01
-    # depth = random.choice([0.005, 0.01, 0.015, 0.02])
-    depth = random.choice([0.01, 0.015, 0.02])
+    depth = random.choice([0.005, 0.01])
+  #  depth = random.choice([0.01, 0.015, 0.02])
     pressrecord(x, y, depth, '_ohmc_' + str(i))
     print(i)
 

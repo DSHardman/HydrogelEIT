@@ -1,17 +1,18 @@
-n = 500;
+n = 1000;
+combs=1024;
 
 positions = zeros(n, 3);
-responseups = zeros(n, 192);
-responsedowns = zeros(n, 192);
-fullresponse = zeros(2*n, 192);
+responseups = zeros(n, combs);
+responsedowns = zeros(n, combs);
+fullresponse = zeros(2*n, combs);
 % 
 % suffix = ["0", "45", "90", "180", "cent", "0", "45", "90", "180", "cent"];
 % depth = ["10", "15", "10", "15", "10", "15", "10", "15", "10", "15"];
 
 for i = 0:n-1
-    position = readNPY('responses/ohmc8/position_ohmc_' + string(i) + '.npy');
-    responseup = readNPY('responses/ohmc8/up_ohmc_' + string(i) + '.npy');
-    responsedown = readNPY('responses/ohmc8/down_ohmc_' + string(i) + '.npy');
+    position = readNPY('responses/new/position_ohmc_' + string(i) + '.npy');
+    responseup = readNPY('responses/new/up_ohmc_' + string(i) + '.npy');
+    responsedown = readNPY('responses/new/down_ohmc_' + string(i) + '.npy');
 
 %     responseup = readNPY('responses/multi/upmulti_C_' + suffix(i) + '_' + depth(i) + '.npy');
 %     responsedown = readNPY('responses/multi/downmulti_C_' + suffix(i) + '_' + depth(i) + '.npy');
