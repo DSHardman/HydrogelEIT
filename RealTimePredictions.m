@@ -4,7 +4,7 @@ clc;
 n = 8; % Number of electrodes
 
 % Connect to board's serial port
-device = serialport("COM15", 115200);
+device = serialport("COM9", 115200);
 % Set board's mode
 if n == 8
     load("Extracted/ohmc8.mat");
@@ -76,7 +76,7 @@ while (1)
     set(gcf, 'Color', 'k', 'ToolBar', 'none', 'MenuBar', 'none'); 
     if n==8
         text(-0.045, 0.08, 'Low Resolution - Faster', 'Color', 'w', 'FontSize', 30);
-        caxis([-20 20]);
+        caxis([-10 10]);
     else
         text(-0.045, 0.08, 'High Resolution - Slower', 'Color', 'w', 'FontSize', 30);
         caxis([-60 60]);
