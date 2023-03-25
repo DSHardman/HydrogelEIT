@@ -73,8 +73,8 @@ def main():
         #mode='d',
     )
 
-    controller._mode = 'd'
-    controller._n_el = 16
+    controller._mode = 'c'
+    controller._n_el = 8
 
     gui = runGui(controller, args.debug_dash)
     gui.run()
