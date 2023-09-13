@@ -1,10 +1,12 @@
 clear;
 clc;
 
-n = 8; % Number of electrodes
+n = 32; % Number of electrodes
 
 % Connect to board's serial port
-device = serialport("COM9", 115200);
+% device = serialport("COM9", 115200);
+device = serialport("COM12", 9600);
+
 % Set board's mode
 if n == 8
     load("Extracted/ohmc8.mat");
@@ -12,6 +14,8 @@ if n == 8
 elseif n == 16
     load("Extracted/ohmc16.mat");
     write(device, "d", "string");
+elseif n==32
+    load("Extracted/taros32.mat");
 else
     error("Invalid number of electrodes\n");
 end
@@ -46,7 +50,7 @@ while (1)
 
     interpolant = scatteredInterpolant(positions(1:500,1),...
         positions(1:500,2),values);
-    [xx,yy] = meshgrid(linspace(-0.07,0.07,60));
+    [xx,yy] = meshgrid(linspace(-0.065,0.065,60));
     value_interp = interpolant(xx,yy);
 
     % Remove points from outside circle
@@ -74,21 +78,41 @@ while (1)
     axis square
     set(gca, 'Visible', 'off');
     set(gcf, 'Color', 'k', 'ToolBar', 'none', 'MenuBar', 'none'); 
-    if n==8
-        text(-0.045, 0.08, 'Low Resolution - Faster', 'Color', 'w', 'FontSize', 30);
-        caxis([-10 10]);
-    else
-        text(-0.045, 0.08, 'High Resolution - Slower', 'Color', 'w', 'FontSize', 30);
-        caxis([-60 60]);
-    end
+    % if n==8
+    %     text(-0.045, 0.08, 'Low Resolution - Faster', 'Color', 'w', 'FontSize', 30);
+    %     caxis([-10 10]);
+    % else
+    %     text(-0.045, 0.08, 'High Resolution - Slower', 'Color', 'w', 'FontSize', 30);
+    %     caxis([-60 60]);
+    % end
+
+    clim([-50 50]);
     drawnow
 end
 
 function response = getresponse(device, n)
 if n == 8
     m = 461;
-else
+elseif n == 16
     m = 2701;
+else
+    averagenumber = 1;
+    zresponse = zeros([1024, 1]);
+    for i = 1:averagenumber
+        line = readline(device);
+        line = split(line, ",");
+        zresponse = [zresponse double(line(1:end-1))];
+    end
+
+    response = zeros([928, 1]);
+    n = 1;
+    for i = 1:1024
+        if any(zresponse(i, :))
+            response(n) = mean(zresponse(i,:));
+            n = n + 1;
+        end
+    end
+    return
 end
     charresponse = read(device, m*2, "char");
     charresponse = charresponse(find(charresponse=='m',1,'first'):find(charresponse=='m',1,'first')+m);
