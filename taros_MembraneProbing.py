@@ -6,14 +6,14 @@ import random
 import serial
 import queue
 
-zeropose = [0.247722, -0.392591, 0.0358576, -3.12646, -0.125169, -0.0300251]
+zeropose = [0.631659, -0.0907919, 0.0472855, 3.11325, -0.294326, 0.0483286]
 
 # #  Connect to UR5
-# urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
-# urnie.set_tcp(wp.probing_tcp)
+urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
+urnie.set_tcp(wp.probing_tcp)
 
 # # Connect to EIT board
-com = "COM12"
+com = "COM3"
 ser = serial.Serial(port=com, baudrate=9600)
 
 
@@ -21,31 +21,32 @@ def pressrecord(x, y, depth, savestring):
     xy = [x, y, depth]
 
     # # Control press using defined variables
-    # startingpose = np.add(zeropose, [x, y, 0.01, 0, 0, 0])
-    # urnie.movel(startingpose, acc=0.02, vel=0.02)
+    startingpose = np.add(zeropose, [x, y, 0.01, 0, 0, 0])
+    urnie.movel(startingpose, acc=0.02, vel=0.02)
 
 
     f = open('responses/taros/up.txt', "a")
-    for i in range(5):
+    for i in range(10):
         f.write(str(ser.readline()))
+        f.write('\n')
     f.close()
 
-    # downpose = np.add(zeropose, [x, y, -depth, 0, 0, 0])
-    # urnie.movel(downpose, acc=0.01, vel=0.01)
-
-
+    downpose = np.add(zeropose, [x, y, -depth, 0, 0, 0])
+    urnie.movel(downpose, acc=0.01, vel=0.01)
+    time.sleep(2)
 
     np.save('responses/taros/position' + savestring, xy)
 
     f = open('responses/taros/down.txt', "a")
-    for i in range(5):
+    for i in range(10):
         f.write(str(ser.readline()))
+        f.write('\n')
     f.close()
 
-    # urnie.movel(startingpose, acc=0.01, vel=0.01)
+    urnie.movel(startingpose, acc=0.01, vel=0.01)
 
 
-for i in range(2):  # Randomise within circle
+for i in range(1000):  # Randomise within circle
 
     radius = 65
 
@@ -60,4 +61,4 @@ for i in range(2):  # Randomise within circle
     pressrecord(x, y, depth, '_taros_' + str(i))
     print(i)
 
-# urnie.close()
+urnie.close()
