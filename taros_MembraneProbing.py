@@ -6,7 +6,7 @@ import random
 import serial
 import queue
 
-zeropose = [0.631659, -0.0907919, 0.0472855, 3.11325, -0.294326, 0.0483286]
+zeropose = [0.63164, -0.0908053, 0.0449409, 3.11323, -0.294369, 0.0482879]
 
 # #  Connect to UR5
 urnie = kgr.kg_robot(port=30010, db_host="169.254.150.50")
