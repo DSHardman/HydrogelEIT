@@ -1,4 +1,4 @@
-n = 300;
+n = 318;
 combs=1024;
 
 positions = zeros(n, 3);
