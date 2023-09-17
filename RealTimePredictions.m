@@ -1,4 +1,4 @@
-clear;
+clear device;
 clc;
 
 n = 32; % Number of electrodes
@@ -8,17 +8,17 @@ n = 32; % Number of electrodes
 device = serialport("COM12", 9600);
 
 % Set board's mode
-if n == 8
-    load("Extracted/ohmc8.mat");
-    write(device, "c", "string");
-elseif n == 16
-    load("Extracted/ohmc16.mat");
-    write(device, "d", "string");
-elseif n==32
-    load("Extracted/taros32.mat");
-else
-    error("Invalid number of electrodes\n");
-end
+% if n == 8
+%     load("Extracted/ohmc8.mat");
+%     write(device, "c", "string");
+% elseif n == 16
+%     load("Extracted/ohmc16.mat");
+%     write(device, "d", "string");
+% elseif n==32
+%     load("Extracted/taros/taros32.mat");
+% else
+%     error("Invalid number of electrodes\n");
+% end
 
 % Set baseline when script is first run
 for i = 1:3
@@ -36,20 +36,20 @@ while (1)
     weights = tanh(weights);
     
     % Construct WAMs
-    magnitudes = responsedowns(1:500,:) - responseups(1:500,:);
+    magnitudes = responsedowns(1:315,:) - responseups(1:315,:);
     for i = 1:size(magnitudes, 1)
         magnitudes(i,:) = normalize(magnitudes(i,:));
         magnitudes(i,:) = tanh(magnitudes(i,:));
     end
-    values = zeros(500,1);
+    values = zeros(315,1);
     for i = 1:size(magnitudes, 2)
         values = values + weights(i)*magnitudes(:,i);
     end
 
-%     scatter(positions(1:500,1), positions(1:500,2), 50, values, 'filled');
+%     scatter(positions(1:315,1), positions(1:315,2), 50, values, 'filled');
 
-    interpolant = scatteredInterpolant(positions(1:500,1),...
-        positions(1:500,2),values);
+    interpolant = scatteredInterpolant(positions(1:315,1),...
+        positions(1:315,2),values);
     [xx,yy] = meshgrid(linspace(-0.065,0.065,60));
     value_interp = interpolant(xx,yy);
 
@@ -86,7 +86,7 @@ while (1)
     %     caxis([-60 60]);
     % end
 
-    clim([-50 50]);
+    clim([-500 500]);
     drawnow
 end
 
